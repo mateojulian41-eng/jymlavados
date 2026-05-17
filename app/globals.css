@@ -1,26 +1,173 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #fafbfc;
+  --foreground: #0f172a;
+  --brand-50: #eff6ff;
+  --brand-100: #dbeafe;
+  --brand-200: #bfdbfe;
+  --brand-400: #60a5fa;
+  --brand-500: #3b82f6;
+  --brand-600: #2563eb;
+  --brand-700: #1d4ed8;
+  --brand-800: #1e40af;
+  --brand-900: #1e3a8a;
+  --brand-950: #0f172a;
+  --accent: #22d3ee;
+  --accent-muted: #a5f3fc;
+  --surface: #ffffff;
+  --muted: #64748b;
+  --border: #e2e8f0;
+  --whatsapp: #25d366;
+  --whatsapp-hover: #1ebe57;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-brand-50: var(--brand-50);
+  --color-brand-100: var(--brand-100);
+  --color-brand-200: var(--brand-200);
+  --color-brand-400: var(--brand-400);
+  --color-brand-500: var(--brand-500);
+  --color-brand-600: var(--brand-600);
+  --color-brand-700: var(--brand-700);
+  --color-brand-800: var(--brand-800);
+  --color-brand-900: var(--brand-900);
+  --color-brand-950: var(--brand-950);
+  --color-accent: var(--accent);
+  --color-accent-muted: var(--accent-muted);
+  --color-surface: var(--surface);
+  --color-muted: var(--muted);
+  --color-border: var(--border);
+  --color-whatsapp: var(--whatsapp);
+  --color-whatsapp-hover: var(--whatsapp-hover);
+  --font-sans: var(--font-jakarta), system-ui, sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+.sr-only:focus,
+.sr-only:active {
+  position: static;
+  width: auto;
+  height: auto;
+  padding: inherit;
+  margin: inherit;
+  overflow: visible;
+  clip: auto;
+  white-space: normal;
+}
+
+::selection {
+  background: color-mix(in srgb, var(--brand-600) 25%, transparent);
+}
+
+.grid-pattern {
+  background-image:
+    linear-gradient(to right, color-mix(in srgb, var(--brand-600) 6%, transparent) 1px, transparent 1px),
+    linear-gradient(to bottom, color-mix(in srgb, var(--brand-600) 6%, transparent) 1px, transparent 1px);
+  background-size: 64px 64px;
+}
+
+.glow-orb {
+  background: radial-gradient(
+    circle,
+    color-mix(in srgb, var(--accent) 35%, transparent) 0%,
+    transparent 70%
+  );
+}
+
+.text-gradient {
+  background: linear-gradient(135deg, var(--brand-700) 0%, var(--brand-500) 45%, var(--accent) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.text-gradient-light {
+  background: linear-gradient(135deg, #ffffff 0%, var(--accent-muted) 55%, var(--accent) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.select-chevron {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' viewBox='0 0 24 24'%3E%3Cpath stroke='%2364748b' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+}
+
+.glass {
+  background: color-mix(in srgb, var(--surface) 88%, transparent);
+  backdrop-filter: blur(20px) saturate(1.2);
+  -webkit-backdrop-filter: blur(20px) saturate(1.2);
+}
+
+/* Cabecera al scroll: sin border (evita línea negra con backdrop-filter) */
+.nav-scrolled {
+  background: color-mix(in srgb, var(--surface) 96%, transparent);
+  backdrop-filter: blur(20px) saturate(1.2);
+  -webkit-backdrop-filter: blur(20px) saturate(1.2);
+  box-shadow: 0 1px 0 color-mix(in srgb, var(--brand-950) 5%, transparent);
+}
+
+@supports not (backdrop-filter: blur(1px)) {
+  .glass,
+  .nav-scrolled {
+    background: var(--surface);
+  }
+}
+
+.grid-pattern-dark {
+  background-image:
+    linear-gradient(to right, color-mix(in srgb, white 5%, transparent) 1px, transparent 1px),
+    linear-gradient(to bottom, color-mix(in srgb, white 5%, transparent) 1px, transparent 1px);
+  background-size: 64px 64px;
+}
+
+.card-shadow {
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--border) 80%, transparent),
+    0 4px 24px -4px color-mix(in srgb, var(--brand-900) 8%, transparent);
+}
+
+.card-shadow-hover {
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--brand-500) 20%, transparent),
+    0 20px 40px -12px color-mix(in srgb, var(--brand-700) 18%, transparent);
 }
