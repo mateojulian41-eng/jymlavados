@@ -10,7 +10,7 @@ import { cn } from "@/lib/cn";
 
 const cases = [
   {
-    title: "SofÃ¡ de sala",
+    title: "Sofá de sala",
     location: "Bocagrande",
     before: "Manchas y olores",
     after: "Como nuevo",
@@ -18,9 +18,9 @@ const cases = [
     afterImage: IMAGES.sofa,
   },
   {
-    title: "ColchÃ³n matrimonial",
+    title: "Colchón matrimonial",
     location: "Manga",
-    before: "Ãcaros y manchas",
+    before: "Ácaros y manchas",
     after: "Fresco y seguro",
     beforeImage: IMAGES.colchon,
     afterImage: IMAGES.colchonDespues,
@@ -53,7 +53,7 @@ const cases = [
     title: "Limpieza profunda",
     location: "Centro",
     before: "Suciedad incrustada",
-    after: "ExtracciÃ³n visible",
+    after: "Extracción visible",
     beforeImage: IMAGES.sofa,
     afterImage: IMAGES.extraccion,
   },
@@ -154,7 +154,7 @@ function ComparisonCard({
       <div
         ref={containerRef}
         role="slider"
-        aria-label={`Comparar antes y despuÃ©s: ${title}`}
+        aria-label={`Comparar antes y después: ${title}`}
         aria-valuemin={8}
         aria-valuemax={92}
         aria-valuenow={Math.round(position)}
@@ -181,7 +181,7 @@ function ComparisonCard({
           <SideCaption
             side="after"
             position={position}
-            label="DespuÃ©s"
+            label="Después"
             text={after}
           />
         </div>
@@ -234,7 +234,7 @@ export function BeforeAfter() {
         <SectionHeader
           label="Resultados reales"
           title="La diferencia se ve al instante"
-          description="Compara el antes y el despuÃ©s por tipo de servicio. Arrastra el control en cada foto."
+          description="Compara el antes y el después por tipo de servicio. Arrastra el control en cada foto."
           align="center"
           theme="dark"
         />
@@ -246,8 +246,8 @@ export function BeforeAfter() {
         </div>
 
         <p className="mx-auto mt-12 max-w-lg text-center text-sm text-brand-200/70">
-          Resultados tÃ­picos con limpieza profunda e inyecciÃ³n-extracciÃ³n. El
-          resultado final puede variar segÃºn el material y el tiempo de uso.
+          Resultados típicos con limpieza profunda e inyección-extracción. El
+          resultado final puede variar según el material y el tiempo de uso.
         </p>
       </motion.div>
     </section>
