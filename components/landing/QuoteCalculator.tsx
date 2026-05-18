@@ -160,7 +160,7 @@ export function QuoteCalculator() {
   const waUrl = useMemo(() => buildWhatsAppUrl(quoteMessage(lines)), [lines]);
 
   const updateLine = useCallback(
-    (id: string, patch: Partial<Pick<CartLine, "service" | "quantity">>) => {
+    (id: number, patch: Partial<Pick<CartLine, "service" | "quantity">>) => {
       setLines((prev) =>
         prev.map((l) => (l.id === id ? { ...l, ...patch } : l)),
       );
@@ -168,7 +168,7 @@ export function QuoteCalculator() {
     [],
   );
 
-  const removeLine = useCallback((id: string) => {
+  const removeLine = useCallback((id: number) => {
     setLines((prev) =>
       prev.length <= 1 ? prev : prev.filter((l) => l.id !== id),
     );
