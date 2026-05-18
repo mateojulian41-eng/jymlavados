@@ -21,11 +21,13 @@ import { cn } from "@/lib/cn";
 
 const serviceOptions = Object.entries(SERVICE_LABELS) as [ServiceId, string][];
 
-type CartLine = QuoteLine & { id: string };
+type CartLine = QuoteLine & { id: number };
+
+let lineIdCounter = 0;
 
 function newLine(service: ServiceId = "sofa", quantity = 1): CartLine {
   return {
-    id: crypto.randomUUID(),
+    id: ++lineIdCounter,
     service,
     quantity,
   };
@@ -66,9 +68,7 @@ function LineEditor({
         <select
           id={`service-${line.id}`}
           value={line.service}
-          onChange={(e) =>
-            onChange({ service: e.target.value as ServiceId })
-          }
+          onChange={(e) => onChange({ service: e.target.value as ServiceId })}
           className="select-chevron min-w-0 flex-1 appearance-none rounded-lg border border-border bg-surface py-2.5 pl-3 pr-9 text-sm font-medium text-brand-950 outline-none transition-colors focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20"
         >
           {serviceOptions.map(([id, label]) => (
@@ -140,7 +140,11 @@ export function QuoteCalculator() {
   useEffect(() => {
     const service = initialService();
     setLines((prev) => {
-      if (prev.length === 1 && prev[0]!.service === "sofa" && service !== "sofa") {
+      if (
+        prev.length === 1 &&
+        prev[0]!.service === "sofa" &&
+        service !== "sofa"
+      ) {
         return [{ ...prev[0]!, service }];
       }
       return prev;
@@ -153,10 +157,7 @@ export function QuoteCalculator() {
     [lines],
   );
 
-  const waUrl = useMemo(
-    () => buildWhatsAppUrl(quoteMessage(lines)),
-    [lines],
-  );
+  const waUrl = useMemo(() => buildWhatsAppUrl(quoteMessage(lines)), [lines]);
 
   const updateLine = useCallback(
     (id: string, patch: Partial<Pick<CartLine, "service" | "quantity">>) => {
@@ -168,14 +169,15 @@ export function QuoteCalculator() {
   );
 
   const removeLine = useCallback((id: string) => {
-    setLines((prev) => (prev.length <= 1 ? prev : prev.filter((l) => l.id !== id)));
+    setLines((prev) =>
+      prev.length <= 1 ? prev : prev.filter((l) => l.id !== id),
+    );
   }, []);
 
   const addLine = useCallback(() => {
     setLines((prev) => {
       const used = new Set(prev.map((l) => l.service));
-      const next =
-        serviceOptions.find(([id]) => !used.has(id))?.[0] ?? "sofa";
+      const next = serviceOptions.find(([id]) => !used.has(id))?.[0] ?? "sofa";
       return [...prev, newLine(next, 1)];
     });
   }, []);
