@@ -91,16 +91,40 @@ export function buildWhatsAppUrl(
   return `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
 }
 
-export function quoteMessage(service: ServiceId, quantity: number): string {
-  const total = PRICES[service] * quantity;
+export type QuoteLine = {
+  service: ServiceId;
+  quantity: number;
+};
+
+export function quoteLineTotal(line: QuoteLine): number {
+  return PRICES[line.service] * line.quantity;
+}
+
+export function quoteTotal(lines: QuoteLine[]): number {
+  return lines.reduce((sum, line) => sum + quoteLineTotal(line), 0);
+}
+
+export function quoteMessage(lines: QuoteLine[]): string {
+  const total = quoteTotal(lines);
+  const items = lines
+    .map(
+      (line, i) =>
+        `${i + 1}. ${SERVICE_LABELS[line.service]} × ${line.quantity} — ${formatCOP(quoteLineTotal(line))}`,
+    )
+    .join("\n");
+
   return (
     `Hola J&M Lavados 👋\n\n` +
-    `Vi su página y me gustaría cotizar:\n` +
-    `• Servicio: ${SERVICE_LABELS[service]}\n` +
-    `• Cantidad: ${quantity}\n` +
-    `• Total estimado: ${formatCOP(total)}\n\n` +
+    `Vi su página y me gustaría cotizar:\n\n` +
+    `${items}\n\n` +
+    `💰 Total estimado: ${formatCOP(total)}\n\n` +
     `¿Tienen disponibilidad en Cartagena?`
   );
+}
+
+/** @deprecated Usa quoteMessage con un arreglo de líneas */
+export function quoteMessageSingle(service: ServiceId, quantity: number): string {
+  return quoteMessage([{ service, quantity }]);
 }
 
 export const DEFAULT_WA = buildWhatsAppUrl(

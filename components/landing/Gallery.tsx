@@ -14,31 +14,31 @@ const tiles = [
     priority: true,
   },
   {
-    image: IMAGES.sofa,
-    label: "Sofás y salas",
-    caption: "Telas revitalizadas, sin olores",
+    image: IMAGES.alfombra,
+    label: "Alfombras",
+    caption: "Extracción industrial en el hogar",
     className: "md:col-span-1",
     priority: false,
   },
   {
-    image: IMAGES.desinfeccion,
-    label: "Desinfección",
-    caption: "Sanitización segura para tu familia",
+    image: IMAGES.tapete,
+    label: "Tapetes",
+    caption: "Cuidado especializado pieza a pieza",
     className: "md:col-span-1",
     priority: false,
   },
   {
-    image: IMAGES.domicilio,
-    label: "A domicilio",
-    caption: "Llevamos el equipo a tu hogar en Cartagena",
+    image: IMAGES.muebles,
+    label: "Muebles",
+    caption: "Sillas y tapizados como nuevos",
+    className: "md:col-span-1",
+    priority: false,
+  },
+  {
+    image: IMAGES.salaLimpia,
+    label: "Resultado final",
+    caption: "Hogares impecables en Cartagena",
     className: "md:col-span-2",
-    priority: false,
-  },
-  {
-    image: IMAGES.colchon,
-    label: "Colchones",
-    caption: "Descanso más sano, libre de ácaros",
-    className: "md:col-span-1",
     priority: false,
   },
 ] as const;
@@ -58,7 +58,7 @@ export function Gallery() {
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="mt-12 grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 md:grid-rows-3 md:gap-5"
+          className="mt-12 grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 md:grid-rows-2 md:gap-5"
         >
           {tiles.map((tile, i) => (
             <motion.figure
@@ -67,11 +67,11 @@ export function Gallery() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-40px" }}
               transition={{ delay: i * 0.07, duration: 0.5 }}
-              className={`group relative overflow-hidden rounded-2xl border border-border bg-surface card-shadow ${tile.className} ${
+              className={`group relative overflow-hidden rounded-2xl border border-border bg-brand-100 card-shadow ${tile.className} ${
                 i === 0
-                  ? "aspect-[16/10] md:aspect-auto md:min-h-[340px]"
-                  : i === 3
-                    ? "aspect-[21/9] md:aspect-auto md:min-h-[180px]"
+                  ? "aspect-[16/10] md:aspect-auto md:min-h-[360px]"
+                  : i === 4
+                    ? "aspect-[21/9] md:aspect-auto md:min-h-[200px]"
                     : "aspect-[4/3] md:aspect-auto md:min-h-[200px]"
               }`}
             >
@@ -83,13 +83,16 @@ export function Gallery() {
                 sizes={
                   i === 0
                     ? "(max-width: 768px) 100vw, 50vw"
-                    : i === 3
+                    : i === 4
                       ? "(max-width: 768px) 100vw, 66vw"
                       : "(max-width: 768px) 100vw, 33vw"
                 }
-                className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+                className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.02]"
               />
-              <motion.div className="absolute inset-0 bg-linear-to-t from-brand-950/90 via-brand-950/25 to-brand-950/5 transition-opacity duration-300 group-hover:from-brand-950/95" />
+              <motion.div
+                className="pointer-events-none absolute inset-0 bg-linear-to-t from-brand-950/90 via-brand-950/20 to-transparent"
+                aria-hidden
+              />
               <figcaption className="absolute inset-x-0 bottom-0 p-5 sm:p-6">
                 <span className="mb-2 inline-block rounded-full border border-white/25 bg-white/10 px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-white backdrop-blur-md">
                   {tile.label}

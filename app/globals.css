@@ -171,3 +171,9 @@ body {
     0 0 0 1px color-mix(in srgb, var(--brand-500) 20%, transparent),
     0 20px 40px -12px color-mix(in srgb, var(--brand-700) 18%, transparent);
 }
+
+/* Evita línea oscura al hacer hover en tarjetas con imagen */
+.service-card-media {
+  isolation: isolate;
+  transform: translateZ(0);
+}

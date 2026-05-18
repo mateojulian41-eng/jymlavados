@@ -35,6 +35,7 @@ const services: {
     desc: "Sillas, puff y tapizados del hogar con tratamiento según el material.",
     price: "Desde $75.000",
     serviceId: "muebles",
+    image: IMAGES.muebles,
   },
   {
     icon: Sofa,
@@ -58,6 +59,7 @@ const services: {
     desc: "Extracción industrial que remueve polvo profundo y revitaliza las fibras.",
     price: "Desde $60.000",
     serviceId: "alfombra",
+    image: IMAGES.alfombra,
   },
   {
     icon: Armchair,
@@ -65,6 +67,7 @@ const services: {
     desc: "Tapetes decorativos y piezas pequeñas con secado controlado.",
     price: "Desde $45.000",
     serviceId: "tapete",
+    image: IMAGES.tapete,
   },
   {
     icon: Sparkles,
@@ -111,7 +114,7 @@ function ServiceCard({
   svc: (typeof services)[number];
 }) {
   const className = cn(
-    "group relative flex flex-col overflow-hidden rounded-2xl border border-border bg-surface transition-shadow duration-300",
+    "group relative flex flex-col overflow-hidden rounded-2xl border border-border bg-surface transition-[box-shadow,transform] duration-300",
     "hover:card-shadow-hover",
     svc.highlight && "border-brand-200/80 bg-brand-50/30",
     svc.serviceId && "cursor-pointer",
@@ -121,16 +124,19 @@ function ServiceCard({
   const content = (
     <>
       {svc.image && (
-        <motion.div className="relative h-36 w-full shrink-0 overflow-hidden sm:h-40">
+        <div className="service-card-media relative h-36 w-full shrink-0 overflow-hidden bg-brand-100 sm:h-40">
           <Image
             src={svc.image.src}
             alt={svc.image.alt}
             fill
             sizes="(max-width: 1024px) 50vw, 25vw"
-            className="object-cover transition-transform duration-500 group-hover:scale-105"
+            className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.02]"
           />
-          <motion.div className="absolute inset-0 bg-linear-to-t from-surface via-transparent to-transparent" />
-        </motion.div>
+          <motion.div
+            className="pointer-events-none absolute inset-x-0 bottom-0 h-14 bg-linear-to-t from-surface to-transparent"
+            aria-hidden
+          />
+        </div>
       )}
       <motion.div className={cn("relative", svc.image && "flex flex-1 flex-col p-6 pt-4")}>
         <motion.div className="mb-4 flex h-11 w-11 items-center justify-center rounded-xl bg-brand-950 text-white transition-transform group-hover:scale-105">
@@ -159,7 +165,6 @@ function ServiceCard({
       <motion.a
         href={`/?servicio=${svc.serviceId}#cotizar`}
         variants={item}
-        whileHover={{ y: -4 }}
         className={className}
       >
         {content}
@@ -168,7 +173,7 @@ function ServiceCard({
   }
 
   return (
-    <motion.article variants={item} whileHover={{ y: -4 }} className={className}>
+    <motion.article variants={item} className={className}>
       {content}
     </motion.article>
   );
