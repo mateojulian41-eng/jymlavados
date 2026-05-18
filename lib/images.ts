@@ -51,4 +51,44 @@ export const IMAGES = {
     src: "/images/sala-limpia.jpg",
     alt: "Hogar luminoso y limpio con sofá renovado",
   },
+  sillaSucia: {
+    src: "/images/Silla sucia antes.png",
+    alt: "Silla de oficina gris con manchas visibles en el respaldo y asiento",
+  },
+  sillaLimpia: {
+    src: "/images/Silla limpia despues.png",
+    alt: "Silla de oficina impecable después de la limpieza profesional",
+  },
+  sofaSucio: {
+    src: "/images/Sofa sucio antes.png",
+    alt: "Sofá con manchas y suciedad visible antes de la limpieza",
+  },
+  sofaLimpio: {
+    src: "/images/Sofa limpio despues.png",
+    alt: "Sofá completamente limpio y renovado después del servicio",
+  },
+  colchonSucio: {
+    src: "/images/colchon sucio antes.png",
+    alt: "Colchón con manchas oscuras y suciedad visible",
+  },
+  colchonLimpio: {
+    src: "/images/colchon limpio despues.png",
+    alt: "Colchón limpio y fresco después del servicio profesional",
+  },
+  alfombraSucia: {
+    src: "/images/Alfombra sucia antes.png",
+    alt: "Alfombra muy sucia con manchas de diferentes colores y restos",
+  },
+  alfombraLimpia: {
+    src: "/images/Alfombra limpia despues.png",
+    alt: "Alfombra completamente limpia y revitalizada",
+  },
+  tapetePersaSucio: {
+    src: "/images/Tapete persa sucia antes.png",
+    alt: "Tapete persa con manchas profundas y suciedad incrustada",
+  },
+  tapetePersaLimpio: {
+    src: "/images/Tapete persa decorativa limpia despues.png",
+    alt: "Tapete persa decorativo limpio con colores vibrantes",
+  },
 } as const;
