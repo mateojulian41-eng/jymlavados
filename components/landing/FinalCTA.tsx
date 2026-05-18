@@ -1,8 +1,10 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { ArrowUpRight, Phone } from "lucide-react";
 import { DEFAULT_WA, SITE } from "@/lib/site";
+import { IMAGES } from "@/lib/images";
 import { WhatsAppButton } from "./WhatsAppButton";
 
 export function FinalCTA() {
@@ -14,16 +16,25 @@ export function FinalCTA() {
         viewport={{ once: true }}
         className="relative mx-auto max-w-6xl overflow-hidden rounded-3xl bg-brand-950 px-6 py-16 text-center sm:px-12 sm:py-20"
       >
-        <div className="pointer-events-none absolute -right-20 -top-20 h-64 w-64 rounded-full bg-brand-600/30 blur-3xl" />
+        <Image
+          src={IMAGES.domicilio.src}
+          alt=""
+          fill
+          sizes="100vw"
+          className="object-cover object-center opacity-25"
+          aria-hidden
+        />
+        <motion.div className="pointer-events-none absolute -right-20 -top-20 h-64 w-64 rounded-full bg-brand-600/30 blur-3xl" />
         <motion.div
           className="pointer-events-none absolute -bottom-24 -left-16 h-72 w-72 rounded-full bg-accent/20 blur-3xl"
           animate={{ opacity: [0.4, 0.7, 0.4] }}
           transition={{ duration: 6, repeat: Infinity }}
         />
-        <div
+        <motion.div
           className="pointer-events-none absolute inset-0 opacity-40 grid-pattern-dark"
           aria-hidden
         />
+        <motion.div className="pointer-events-none absolute inset-0 bg-linear-to-r from-brand-950 via-brand-950/90 to-brand-950/75" />
 
         <div className="relative z-10">
           <p className="text-sm font-semibold uppercase tracking-widest text-accent">

@@ -1,8 +1,10 @@
 "use client";
 
 import { useCallback, useRef, useState } from "react";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { GripVertical } from "lucide-react";
+import { IMAGES } from "@/lib/images";
 import { SectionHeader } from "./SectionHeader";
 
 const cases = [
@@ -11,27 +13,37 @@ const cases = [
     location: "Bocagrande",
     before: "Manchas, olor a humedad y polvo acumulado",
     after: "Tela revitalizada, sin olores, listo el mismo día",
+    beforeImage: IMAGES.desinfeccion,
+    afterImage: IMAGES.sofa,
   },
   {
     title: "Colchón matrimonial",
     location: "Manga",
     before: "Manchas y ácaros por años de uso",
     after: "Desinfectado, fresco y seguro para dormir",
+    beforeImage: IMAGES.desinfeccion,
+    afterImage: IMAGES.colchon,
   },
   {
-    title: "Alfombra decorativa",
+    title: "Limpieza profunda",
     location: "Crespo",
-    before: "Manchas de mascotas y tráfico diario",
-    after: "Colores recuperados y fibras suaves",
+    before: "Suciedad profunda en fibras del tapizado",
+    after: "Extracción visible, como nuevo al instante",
+    beforeImage: IMAGES.sofa,
+    afterImage: IMAGES.extraccion,
   },
-];
+] as const;
+
+type CaseItem = (typeof cases)[number];
 
 function ComparisonCard({
   title,
   location,
   before,
   after,
-}: (typeof cases)[0]) {
+  beforeImage,
+  afterImage,
+}: CaseItem) {
   const [position, setPosition] = useState(50);
   const dragging = useRef(false);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -84,42 +96,54 @@ function ComparisonCard({
         onPointerUp={onPointerUp}
         onPointerCancel={onPointerUp}
       >
-        <div className="absolute inset-0 bg-linear-to-br from-brand-100 via-brand-50 to-accent-muted/50">
-          <motion.div className="absolute inset-0 flex items-center justify-center p-6">
-            <div className="text-center">
-              <span className="rounded-full bg-brand-600/15 px-3 py-1 text-xs font-semibold text-brand-800">
-                Después
-              </span>
-              <p className="mt-3 max-w-[200px] text-sm font-medium leading-snug text-brand-900">
-                {after}
-              </p>
-            </div>
-          </motion.div>
-        </div>
-
-        <div
-          className="absolute inset-0 overflow-hidden bg-linear-to-br from-slate-400 via-slate-300 to-slate-200"
-          style={{ clipPath: `inset(0 ${100 - position}% 0 0)` }}
-        >
-          <div className="absolute inset-0 flex items-center justify-center p-6">
-            <div className="text-center">
-              <span className="rounded-full bg-slate-700/15 px-3 py-1 text-xs font-semibold text-slate-800">
-                Antes
-              </span>
-              <p className="mt-3 max-w-[200px] text-sm font-medium leading-snug text-slate-900">
-                {before}
-              </p>
-            </div>
+        <motion.div className="absolute inset-0">
+          <Image
+            src={afterImage.src}
+            alt={afterImage.alt}
+            fill
+            sizes="(max-width: 768px) 100vw, 33vw"
+            className="object-cover"
+          />
+          <motion.div className="absolute inset-0 bg-linear-to-t from-brand-950/75 via-transparent to-brand-950/30" />
+          <div className="absolute bottom-4 right-4 z-20 max-w-[180px] text-right">
+            <span className="rounded-full bg-white/20 px-3 py-1 text-xs font-semibold text-white backdrop-blur-sm">
+              Después
+            </span>
+            <p className="mt-2 text-xs font-medium leading-snug text-white drop-shadow-md sm:text-sm">
+              {after}
+            </p>
           </div>
-        </div>
+        </motion.div>
 
         <motion.div
-          className="pointer-events-none absolute inset-y-0 z-10 w-px bg-white/90 shadow-[0_0_12px_rgba(255,255,255,0.5)]"
+          className="absolute inset-0 overflow-hidden"
+          style={{ clipPath: `inset(0 ${100 - position}% 0 0)` }}
+        >
+          <Image
+            src={beforeImage.src}
+            alt={beforeImage.alt}
+            fill
+            sizes="(max-width: 768px) 100vw, 33vw"
+            className="object-cover brightness-90 contrast-105 saturate-75"
+          />
+          <motion.div className="absolute inset-0 bg-brand-950/35" />
+          <div className="absolute bottom-4 left-4 z-20 max-w-[180px]">
+            <span className="rounded-full bg-black/30 px-3 py-1 text-xs font-semibold text-white backdrop-blur-sm">
+              Antes
+            </span>
+            <p className="mt-2 text-xs font-medium leading-snug text-white drop-shadow-md sm:text-sm">
+              {before}
+            </p>
+          </div>
+        </motion.div>
+
+        <motion.div
+          className="pointer-events-none absolute inset-y-0 z-30 w-0.5 bg-white shadow-[0_0_16px_rgba(255,255,255,0.6)]"
           style={{ left: `${position}%` }}
         >
-          <div className="absolute left-1/2 top-1/2 flex h-11 w-11 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border-2 border-white bg-brand-600 text-white shadow-xl">
+          <motion.div className="absolute left-1/2 top-1/2 flex h-11 w-11 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border-2 border-white bg-brand-600 text-white shadow-xl">
             <GripVertical size={16} aria-hidden />
-          </div>
+          </motion.div>
         </motion.div>
       </motion.div>
 
@@ -141,7 +165,7 @@ export function BeforeAfter() {
         <SectionHeader
           label="Resultados reales"
           title="La diferencia se ve al instante"
-          description="Compara el antes y el después de trabajos reales en hogares de Cartagena. Arrastra o desliza el control."
+          description="Compara el antes y el después con fotos de nuestro equipo en acción. Arrastra el control."
           align="center"
           theme="dark"
         />

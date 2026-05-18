@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "framer-motion";
 import {
   ArrowRight,
@@ -10,6 +11,7 @@ import {
   Users,
 } from "lucide-react";
 import { DEFAULT_WA } from "@/lib/site";
+import { IMAGES } from "@/lib/images";
 import { WhatsAppButton } from "./WhatsAppButton";
 import { QuoteCalculator } from "./QuoteCalculator";
 
@@ -33,7 +35,7 @@ export function Hero() {
         animate={{ scale: [1, 1.05, 1], opacity: [0.5, 0.7, 0.5] }}
         transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
       />
-      <div className="pointer-events-none absolute inset-0 grid-pattern opacity-40" />
+      <motion.div className="pointer-events-none absolute inset-0 grid-pattern opacity-40" />
 
       <motion.div
         className="relative mx-auto max-w-6xl px-5 sm:px-6"
@@ -87,10 +89,10 @@ export function Hero() {
                 Cotizar por WhatsApp
               </WhatsAppButton>
               <a
-                href="#resultados"
+                href="#galeria"
                 className="inline-flex h-14 items-center justify-center gap-2 rounded-xl border border-border bg-surface px-6 text-sm font-semibold text-brand-950 transition-colors hover:border-brand-300 hover:bg-brand-50"
               >
-                Ver resultados
+                Ver nuestro trabajo
                 <ArrowRight size={16} />
               </a>
             </motion.div>
@@ -137,14 +139,46 @@ export function Hero() {
             </motion.div>
           </div>
 
-          <motion.div className="relative pb-4 lg:pb-20">
+          <motion.div className="relative space-y-5 lg:pb-4">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.96 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.15, duration: 0.55 }}
+              className="relative overflow-hidden rounded-2xl border border-border card-shadow"
+            >
+              <div className="relative aspect-[16/11] w-full sm:aspect-[5/3]">
+                <Image
+                  src={IMAGES.hero.src}
+                  alt={IMAGES.hero.alt}
+                  fill
+                  priority
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                  className="object-cover object-center"
+                />
+                <motion.div className="absolute inset-0 bg-linear-to-t from-brand-950/50 via-transparent to-transparent" />
+                <div className="absolute bottom-4 left-4 right-4 flex items-end justify-between gap-3">
+                  <div>
+                    <p className="text-xs font-semibold uppercase tracking-widest text-white/80">
+                      J&amp;M Lavados
+                    </p>
+                    <p className="text-sm font-medium text-white">
+                      Servicio profesional a domicilio
+                    </p>
+                  </div>
+                  <span className="shrink-0 rounded-full bg-white/15 px-3 py-1.5 text-xs font-semibold text-white backdrop-blur-md">
+                    Cartagena
+                  </span>
+                </div>
+              </div>
+            </motion.div>
+
             <motion.div
               initial={{ opacity: 0, scale: 0.96 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.2, duration: 0.5 }}
               className="relative"
             >
-              <div className="absolute -inset-4 rounded-3xl bg-linear-to-br from-brand-100/80 via-transparent to-accent-muted/40 blur-2xl" />
+              <motion.div className="absolute -inset-4 rounded-3xl bg-linear-to-br from-brand-100/80 via-transparent to-accent-muted/40 blur-2xl" />
               <div id="cotizar" className="relative scroll-mt-28">
                 <QuoteCalculator />
               </div>
@@ -154,21 +188,19 @@ export function Hero() {
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.5 }}
-              className="absolute left-0 top-full mt-5 z-10 hidden rounded-2xl border border-border/60 bg-surface p-4 shadow-lg shadow-brand-900/8 lg:block"
+              className="flex items-center gap-3 rounded-2xl border border-border/60 bg-surface p-4 shadow-lg shadow-brand-900/8"
             >
-              <div className="flex items-center gap-3">
-                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-brand-50 text-brand-600">
-                  <Users size={18} />
-                </div>
-                <div>
-                  <p className="text-sm font-semibold text-brand-950">
-                    Negocio familiar
-                  </p>
-                  <p className="flex items-center gap-1 text-xs text-muted">
-                    <Star size={12} className="fill-amber-400 text-amber-400" />
-                    Confianza en Cartagena
-                  </p>
-                </div>
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-brand-50 text-brand-600">
+                <Users size={18} />
+              </div>
+              <div>
+                <p className="text-sm font-semibold text-brand-950">
+                  Negocio familiar
+                </p>
+                <p className="flex items-center gap-1 text-xs text-muted">
+                  <Star size={12} className="fill-amber-400 text-amber-400" />
+                  Confianza en Cartagena
+                </p>
               </div>
             </motion.div>
           </motion.div>

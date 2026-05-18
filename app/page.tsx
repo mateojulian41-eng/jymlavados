@@ -1,5 +1,6 @@
 import { Navbar } from "@/components/landing/Navbar";
 import { Hero } from "@/components/landing/Hero";
+import { Gallery } from "@/components/landing/Gallery";
 import { Services } from "@/components/landing/Services";
 import { BeforeAfter } from "@/components/landing/BeforeAfter";
 import { Process } from "@/components/landing/Process";
@@ -17,6 +18,7 @@ export default function Home() {
       <Navbar />
       <main id="contenido" className="overflow-x-hidden">
         <Hero />
+        <Gallery />
         <Services />
         <BeforeAfter />
         <Process />
@@ -26,7 +28,7 @@ export default function Home() {
         <FAQ />
         <FinalCTA />
         <Footer />
-      </main>
+      </main>     
       <FloatingWhatsApp />
     </>
   );

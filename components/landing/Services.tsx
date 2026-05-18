@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "framer-motion";
 import {
   Armchair,
@@ -13,8 +14,11 @@ import {
   Wind,
 } from "lucide-react";
 import type { ServiceId } from "@/lib/site";
+import { IMAGES } from "@/lib/images";
 import { SectionHeader } from "./SectionHeader";
 import { cn } from "@/lib/cn";
+
+type ServiceImage = (typeof IMAGES)[keyof typeof IMAGES];
 
 const services: {
   icon: typeof LayoutGrid;
@@ -23,6 +27,7 @@ const services: {
   price: string;
   serviceId?: ServiceId;
   highlight?: boolean;
+  image?: ServiceImage;
 }[] = [
   {
     icon: LayoutGrid,
@@ -37,6 +42,7 @@ const services: {
     desc: "Limpieza profunda de tela, microfibra y cuero. Eliminamos manchas y olores.",
     price: "Desde $80.000",
     serviceId: "sofa",
+    image: IMAGES.sofa,
   },
   {
     icon: BedDouble,
@@ -44,6 +50,7 @@ const services: {
     desc: "Desinfección contra ácaros, bacterias y humedad para un descanso más sano.",
     price: "Desde $90.000",
     serviceId: "colchon",
+    image: IMAGES.colchon,
   },
   {
     icon: Layers,
@@ -65,6 +72,7 @@ const services: {
     desc: "Tratamiento intensivo para piezas muy sucias o sin mantenimiento prolongado.",
     price: "Desde $120.000",
     serviceId: "profunda",
+    image: IMAGES.extraccion,
   },
   {
     icon: Droplets,
@@ -72,6 +80,7 @@ const services: {
     desc: "Neutralizamos orina, humedad, comida y olores persistentes.",
     price: "Incluido",
     highlight: true,
+    image: IMAGES.domicilio,
   },
   {
     icon: ShieldCheck,
@@ -79,6 +88,7 @@ const services: {
     desc: "Productos biodegradables seguros para niños, mascotas y adultos mayores.",
     price: "Incluido",
     highlight: true,
+    image: IMAGES.desinfeccion,
   },
 ];
 
@@ -101,31 +111,46 @@ function ServiceCard({
   svc: (typeof services)[number];
 }) {
   const className = cn(
-    "group relative overflow-hidden rounded-2xl border border-border bg-surface p-6 transition-shadow duration-300",
+    "group relative flex flex-col overflow-hidden rounded-2xl border border-border bg-surface transition-shadow duration-300",
     "hover:card-shadow-hover",
     svc.highlight && "border-brand-200/80 bg-brand-50/30",
     svc.serviceId && "cursor-pointer",
+    svc.image ? "p-0" : "p-6",
   );
 
   const content = (
     <>
-      <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-xl bg-brand-950 text-white transition-transform group-hover:scale-105">
-        <svc.icon size={20} strokeWidth={1.75} />
-      </div>
-      <h3 className="text-base font-semibold text-brand-950">{svc.title}</h3>
-      <p className="mt-2 text-sm leading-relaxed text-muted">{svc.desc}</p>
-      <p className="mt-4 text-sm font-semibold text-brand-700">
-        {svc.price}
-        {!svc.highlight && (
-          <span className="ml-1 font-normal text-muted">/ ud.</span>
-        )}
-      </p>
-      {svc.serviceId && (
-        <p className="mt-3 text-xs font-medium text-brand-600 opacity-0 transition-opacity group-hover:opacity-100">
-          Cotizar este servicio →
-        </p>
+      {svc.image && (
+        <motion.div className="relative h-36 w-full shrink-0 overflow-hidden sm:h-40">
+          <Image
+            src={svc.image.src}
+            alt={svc.image.alt}
+            fill
+            sizes="(max-width: 1024px) 50vw, 25vw"
+            className="object-cover transition-transform duration-500 group-hover:scale-105"
+          />
+          <motion.div className="absolute inset-0 bg-linear-to-t from-surface via-transparent to-transparent" />
+        </motion.div>
       )}
-      <motion.div className="pointer-events-none absolute -right-6 -top-6 h-24 w-24 rounded-full bg-brand-100/0 transition-colors group-hover:bg-brand-100/60" />
+      <motion.div className={cn("relative", svc.image && "flex flex-1 flex-col p-6 pt-4")}>
+        <motion.div className="mb-4 flex h-11 w-11 items-center justify-center rounded-xl bg-brand-950 text-white transition-transform group-hover:scale-105">
+          <svc.icon size={20} strokeWidth={1.75} />
+        </motion.div>
+        <h3 className="text-base font-semibold text-brand-950">{svc.title}</h3>
+        <p className="mt-2 text-sm leading-relaxed text-muted">{svc.desc}</p>
+        <p className="mt-4 text-sm font-semibold text-brand-700">
+          {svc.price}
+          {!svc.highlight && (
+            <span className="ml-1 font-normal text-muted">/ ud.</span>
+          )}
+        </p>
+        {svc.serviceId && (
+          <p className="mt-3 text-xs font-medium text-brand-600 opacity-0 transition-opacity group-hover:opacity-100">
+            Cotizar este servicio →
+          </p>
+        )}
+        <motion.div className="pointer-events-none absolute -right-6 -top-6 h-24 w-24 rounded-full bg-brand-100/0 transition-colors group-hover:bg-brand-100/60" />
+      </motion.div>
     </>
   );
 
