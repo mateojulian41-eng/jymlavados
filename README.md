@@ -7,8 +7,9 @@ Plataforma web desarrollada para fortalecer la presencia digital de una empresa 
 - Diseño responsive
 - Optimización para dispositivos móviles
 - Información clara de servicios
-- Formulario de contacto
+- Canales de contacto
 - Experiencia de usuario optimizada
+- Despliegue en Vercel
 
 ## Tecnologías
 
@@ -18,10 +19,11 @@ Plataforma web desarrollada para fortalecer la presencia digital de una empresa 
 - TypeScript
 - Git
 - GitHub
+- Vercel
 
 ## Objetivo
 
-Desarrollar una solución web profesional que permitiera mejorar la presencia digital del negocio y facilitar el contacto con clientes potenciales.
+Desarrollar una solución web profesional que permitiera mejorar la visibilidad digital del negocio y facilitar el contacto con clientes potenciales.
 
 ## Proyecto en línea
 
@@ -32,3 +34,4 @@ Desarrollar una solución web profesional que permitiera mejorar la presencia di
 Mateo Julián Payares Cárcamo
 
 📧 mateojulian41@gmail.com
+``
